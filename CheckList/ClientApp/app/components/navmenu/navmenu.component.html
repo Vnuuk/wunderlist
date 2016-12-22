@@ -1,0 +1,26 @@
+<div class='main-nav'>
+    <div class='navbar navbar-inverse'>
+        <div class='navbar-header'>
+            <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
+                <span class='sr-only'>Wunderlist</span>
+                <span class='icon-bar'></span>
+                <span class='icon-bar'></span>
+                <span class='icon-bar'></span>
+            </button>
+            <a class='navbar-brand' [routerLink]="['/home']">Wunderlist</a>
+        </div>
+        <div class='clearfix'></div>
+        <div class='navbar-collapse collapse'>
+            <ul class='nav navbar-nav'>
+                <li [routerLinkActive]="['link-active']" *ngFor="let list of lists">
+                    <a [routerLink]="[list.id, list.name]" class="li-a1">
+                        <span class='glyphicon glyphicon-home'></span> {{ list.name }}
+                    </a>
+                    <a class="li-a2" (click)="removeList(list.id)">
+                        <span class='glyphicon glyphicon-trash'></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
