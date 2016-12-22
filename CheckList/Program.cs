@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace CheckList
 {
-    public class Program
+    public class Program 
     {
         public static void Main(string[] args)
         {

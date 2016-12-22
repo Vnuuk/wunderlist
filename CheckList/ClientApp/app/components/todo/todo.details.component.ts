@@ -5,7 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { IItemInfo } from "../shared/IItemInfo";
 
 @Component({
-    template: require('./todo.details.component.html')
+    template: require('./todo.details.component.html'),
+    styles: [ require('./todo.details.component.css') ]
 })
 
 export class DetailsComponent {
