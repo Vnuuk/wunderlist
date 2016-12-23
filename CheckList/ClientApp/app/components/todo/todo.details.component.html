@@ -6,7 +6,7 @@
         <div class="input-group">
             <input type="text" class="form-control" placeholder="New item.." [(ngModel)]="newListItem">
             <span class="input-group-btn">
-                <button class="btn btn-default" (click)="addNewValue()" type="button">Add to List</button>
+                <button class="btn btn-default" [disabled]="newListItem == undefined || newListItem.length < 3" (click)="addNewValue()" type="button">Add to List</button>
             </span>
         </div>
     </div>
