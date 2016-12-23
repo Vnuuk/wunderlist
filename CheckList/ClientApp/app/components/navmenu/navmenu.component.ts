@@ -5,32 +5,32 @@ import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/catch'
 import { Observable } from 'rxjs/Observable';
 import { ICheckList } from '../shared/ICheckList';
+import { NavMenuService } from '../navmenu/navmenu.service';
 
 @Component({
     selector: 'nav-menu',
     template: require('./navmenu.component.html'),
-    styles: [require('./navmenu.component.css')]
+    styles: [require('./navmenu.component.css')],
+    providers: [ NavMenuService ]
 })
 
 export class NavMenuComponent {
-    constructor(private _http: Http) { }
+    constructor(private _http: Http,
+                private _navService: NavMenuService) { }
 
-    lists: Observable<ICheckList[]>;
+    lists: ICheckList[];
 
     ngOnInit() {
         this.refreshPanel();
     }
 
     refreshPanel(): void {
-        this._http.get('/lists/get')
-            .map(res => res.json())
-            .subscribe(json => this.lists = <Observable<ICheckList[]>>json);
+        this._navService.getChecklists()
+            .subscribe(r => this.lists = <ICheckList[]>r);
     }
 
     removeList(id: number): void {
-        let url = '/lists/delete?id=' + id;
-        this._http.get(url)
-            .map(res => res.json())
-            .subscribe(json => this.lists = <Observable<ICheckList[]>>json);
+        this._navService.deleteChecklist(id)
+            .subscribe(r => this.lists = <ICheckList[]>r);
     }
 }
