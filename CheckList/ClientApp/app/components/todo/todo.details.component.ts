@@ -3,7 +3,6 @@ import { Http } from '@angular/http';
 import { RouterModule, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { IItemInfo } from "../shared/IItemInfo";
-import { IDictionary } from "../shared/Dictionary";
 
 @Component({
     template: require('./todo.details.component.html'),
@@ -15,7 +14,6 @@ export class DetailsComponent {
     title: string;
     newListItem: string;
     listId: string;
-
 
     constructor(private route: ActivatedRoute, private _http: Http) { }
 
@@ -43,5 +41,11 @@ export class DetailsComponent {
     updateItemValue(done: any, itemId: number): void {
         this._http.post('/list/items/update?itemId=' + itemId + "&done=" + done, null)
             .subscribe();
+    }
+
+    removeItem(id: number): void {
+        this._http.get('/list/items/delete?id=' + id + '&listId=' + this.listId)
+            .map(res => res.json())
+            .subscribe(json => this.items = <Observable<IItemInfo[]>>json);
     }
 }

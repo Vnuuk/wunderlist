@@ -56,6 +56,16 @@ namespace CheckList.Controllers
             _context.SaveChanges();
         }
 
+        [Route("list/items/delete")]
+        public object DeleteListItem(int id, int listId)
+        {
+            var item = _context.ItemDetails.First(r => r.Id == id);
+            _context.ItemDetails.Remove(item);
+            _context.SaveChanges();
+
+            return _context.ItemDetails.Where(r => r.CheckListId == listId).ToList();
+        }
+
         public IActionResult Index()
         {
             return View();

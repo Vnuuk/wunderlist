@@ -106,3 +106,21 @@ input {
 label {
     outline: none;
 }
+
+.glyphicon-remove:hover {
+    cursor: pointer;
+}
+
+.glyphicon-remove {
+    color: red;
+    margin-top: -4px;
+    display: none;
+}
+
+.list-item i {
+    display: none;
+}
+
+.list-item:hover i {
+    display: inline-block;
+}

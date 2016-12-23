@@ -6,7 +6,7 @@
         <div class="input-group">
             <input type="text" class="form-control" placeholder="New item.." [(ngModel)]="newListItem">
             <span class="input-group-btn">
-                <button class="btn btn-info" (click)="addNewValue()" type="button">Add to List</button>
+                <button class="btn btn-default" (click)="addNewValue()" type="button">Add to List</button>
             </span>
         </div>
     </div>
@@ -15,9 +15,10 @@
 <br />
 <div class="row" *ngFor="let item of items">
     <div class="col-lg-6">
-        <p>
+        <p class="list-item">
             <input type="checkbox" (change)="updateItemValue($event.target.getAttribute('ng-reflect-model'), item.id)" [(ngModel)]="item.done" [attr.id]="item.id" />
             <label [style.text-decoration]="item.done ? 'line-through' : 'none'" [attr.for]="item.id">{{ item.title }}</label>
+            <i class="glyphicon glyphicon-remove" (click)="removeItem(item.id)"></i>
         </p>
     </div>
 </div>
