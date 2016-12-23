@@ -3,27 +3,30 @@ import { Http } from '@angular/http';
 import { RouterModule, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { IItemInfo } from "../shared/IItemInfo";
+import { ChecklistDetailsService } from "../todo/todo.details.service";
 
 @Component({
     template: require('./todo.details.component.html'),
-    styles: [ require('./todo.details.component.css') ]
+    styles: [require('./todo.details.component.css')],
+    providers: [ChecklistDetailsService]
 })
 
 export class DetailsComponent {
-    items: Observable<IItemInfo[]>;
+    items: IItemInfo[];
     title: string;
     newListItem: string;
     listId: string;
 
-    constructor(private route: ActivatedRoute, private _http: Http) { }
+    constructor(private route: ActivatedRoute,
+        private _http: Http,
+        private _detailsService: ChecklistDetailsService) { }
 
     refreshDetails(): void {
         this.route.params.subscribe((params: Params) => {
             this.listId = params['id'];
             this.title = params['title'];
-            this._http.get('/list/details?id=' + this.listId)
-                .map(res => res.json())
-                .subscribe(json => this.items = <Observable<IItemInfo[]>>json);
+            this._detailsService.getDetails(this.listId)
+                .subscribe(r => this.items = <IItemInfo[]>r);
         });
     }
 
@@ -32,20 +35,17 @@ export class DetailsComponent {
     }
 
     addNewValue(): void {
-        this._http.get('/list/items/add?title=' + this.newListItem + '&listId=' + this.listId)
-            .map(res => res.json())
+        this._detailsService.addNewValue(this.newListItem, this.listId)
             .do(r => this.newListItem = '')
-            .subscribe(json => this.items = <Observable<IItemInfo[]>>json);
+            .subscribe(r => this.items = <IItemInfo[]>r);
     }
 
     updateItemValue(done: any, itemId: number): void {
-        this._http.post('/list/items/update?itemId=' + itemId + "&done=" + done, null)
-            .subscribe();
+        this._detailsService.toggleItem(done, itemId);
     }
 
     removeItem(id: number): void {
-        this._http.get('/list/items/delete?id=' + id + '&listId=' + this.listId)
-            .map(res => res.json())
-            .subscribe(json => this.items = <Observable<IItemInfo[]>>json);
+        this._detailsService.deleteItem(id, this.listId)
+            .subscribe(r => this.items = <IItemInfo[]>r);
     }
 }
