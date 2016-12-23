@@ -45,6 +45,17 @@ namespace CheckList.Controllers
             return _context.ItemDetails.Where(r => r.CheckListId == listId).ToList();
         }
 
+        [Route("list/items/update")]
+        public void UpdateListItem(int itemId, string done)
+        {
+            var item = _context.ItemDetails.First(r => r.Id == itemId);
+            if (item != null)
+            {
+                item.Done = !bool.Parse(done);
+            }
+            _context.SaveChanges();
+        }
+
         public IActionResult Index()
         {
             return View();
