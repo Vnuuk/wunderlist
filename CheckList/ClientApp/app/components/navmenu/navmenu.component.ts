@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http, RequestOptions, URLSearchParams, Headers, Response } from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/catch'
 import { Observable } from 'rxjs/Observable';
 import { ICheckList } from '../shared/ICheckList';
 import { NavMenuService } from '../navmenu/navmenu.service';
+import { AddListComponent } from '../todo/add.list.component';
 
 @Component({
     selector: 'nav-menu',
@@ -15,13 +18,20 @@ import { NavMenuService } from '../navmenu/navmenu.service';
 })
 
 export class NavMenuComponent {
-    constructor(private _http: Http,
-                private _navService: NavMenuService) { }
-
+    @ViewChild(AddListComponent) modal: AddListComponent;
     lists: ICheckList[];
+
+    constructor(private _http: Http,
+        private _navService: NavMenuService,
+        private router: Router,
+        private location: Location) { }
 
     ngOnInit() {
         this.refreshPanel();
+
+        if (this.location.path() === '/new') {
+            this.modal.open();
+        }
     }
 
     refreshPanel(): void {

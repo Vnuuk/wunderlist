@@ -8,6 +8,7 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { DetailsComponent } from './components/todo/todo.details.component';
 import { FormsModule } from '@angular/forms';
+import { AddListComponent } from './components/todo/add.list.component';
 
 @NgModule({
     bootstrap: [ AppComponent ],
@@ -17,7 +18,8 @@ import { FormsModule } from '@angular/forms';
         CounterComponent,
         FetchDataComponent,
         HomeComponent,
-        DetailsComponent
+        DetailsComponent,
+        AddListComponent
     ],
     imports: [
         FormsModule,
@@ -28,6 +30,7 @@ import { FormsModule } from '@angular/forms';
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: ':id/:title', component: DetailsComponent },
+            { path: 'new', component: AddListComponent },
 
             { path: '**', redirectTo: 'home' }
         ])

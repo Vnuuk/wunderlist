@@ -66,6 +66,15 @@ namespace CheckList.Controllers
             return _context.ItemDetails.Where(r => r.CheckListId == listId).ToList();
         }
 
+        [Route("list/new/add")]
+        public void CreateNewList(string title)
+        {
+            var list = new CheckList();
+            list.Name = title;
+            _context.CheckLists.Add(list);
+            _context.SaveChanges();
+        }
+
         public IActionResult Index()
         {
             return View();

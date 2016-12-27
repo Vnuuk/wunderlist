@@ -1,0 +1,17 @@
+﻿<div id="add-list-modal" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" [routerLink]="['/home']">&times;</button>
+                <h4 class="modal-title">Add new List</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" placeholder="List name" [(ngModel)]="newListName">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" [routerLink]="['/home']" id="close-modal">Close</button>
+                <button type="button" class="btn btn-success" [disabled]="newListName == undefined || newListName.length < 3" (click)="addNewList()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>

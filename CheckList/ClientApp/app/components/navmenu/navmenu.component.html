@@ -1,4 +1,4 @@
-<div class='main-nav'>
+<div class='main-nav' (updateRequest)="refreshPanel()">
     <div class='navbar navbar-inverse'>
         <div class='navbar-header'>
             <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
@@ -10,7 +10,7 @@
             <a class='navbar-brand' [routerLink]="['/home']">Wunderlist</a>
         </div>
         <div class='clearfix'></div>
-        <div class='navbar-collapse collapse'>
+        <div class='navbar-collapse collapse' id="sidebar-wrapper-wrapper">
             <ul class='nav navbar-nav'>
                 <li [routerLinkActive]="['link-active']" *ngFor="let list of lists">
                     <a [routerLink]="[list.id, list.name]" class="li-a1">
@@ -22,5 +22,14 @@
                 </li>
             </ul>
         </div>
-    </div>
+        <div class="footer-nav">
+            <a class='navbar-brand' [routerLink]="['/new']" (click)="modal.open()">
+                <span class='glyphicon glyphicon-plus'></span>&nbsp;&nbsp;
+                Add new List
+            </a>
+            <a class="hidden" data-toggle="modal" id="add-new-list" data-target="#add-list-modal"></a>
+        </div>  
+    </div>    
 </div>
+
+<add-new-list-modal></add-new-list-modal>

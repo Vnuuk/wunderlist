@@ -73,3 +73,20 @@ li.link-active a:focus {
     color: white;
     cursor: pointer;
 }
+
+#sidebar-wrapper-wrapper {
+    height: auto !important;
+    margin: 0 auto -100px;
+    min-height: 100%;
+    padding: 0 0 60px;
+}
+
+.footer-nav {
+    height: 60px;
+}
+
+.footer-nav > a {
+    border-top: 1px solid #f0f0f0!important;
+    border-top-color: rgba(240, 240, 240, 0.2)!important;
+    outline: none;
+}
